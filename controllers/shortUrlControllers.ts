@@ -54,7 +54,19 @@ function isValidUrl(text: any){
 
 }
 
+export const deleteLink = async (request: express.Request, response: express.Response) => {
+ const itemId = request.params.id
+ console.log(itemId)
+try {
+    // Delete the item from the database
+    await ShortUrl.findByIdAndDelete(itemId);
+    response.json({ success: true });
+  } catch (error) {
+    console.error('An error occurred while deleting the item:', error);
+    response.status(500).json({ error: 'Internal Server Error' });
+  }
 
+};
 
 
 

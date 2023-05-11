@@ -10,6 +10,14 @@
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
     <title>Document</title>
   </head>
   <body>
@@ -35,6 +43,7 @@
             <th>Full URL</th>
             <th>SHort URL</th>
             <th>Clicks</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody class="table-success">
@@ -43,6 +52,10 @@
             <td><a href="<%= shortUrl.full %>"><%= shortUrl.full %></a></td>
             <td><a href="<%= shortUrl.short %>"><%= shortUrl.short %></a></td>
             <td><%= shortUrl.clicks %></td>
+            <td>
+             <a href="#" class="delete-link" data-id="<%= shortUrl.id %>">
+              <i style="color: red" class="fa fa-trash"></i>
+            </td>
           </tr>
           <% }) %>
         </tbody>
@@ -69,4 +82,26 @@
       </form>
     </div>
   </body>
+  <script>
+    // Attach an event listener to the delete links
+    const deleteLinks = document.querySelectorAll(".delete-link");
+    deleteLinks.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        
+        const itemId = link.getAttribute("data-id");
+        
+        // Send the DELETE request to the server
+        fetch(`/delete/${itemId}`, { method: "DELETE" })
+          .then((response) => response.json())
+          .then((data) => {
+            // Handle the response here (e.g., refresh the page)
+            location.reload();
+          })
+          .catch((error) => {
+            console.error("An error occurred while deleting the item:", error);
+          });
+      });
+      });
+  </script>
 </html>
