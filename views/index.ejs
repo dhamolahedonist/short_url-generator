@@ -48,5 +48,25 @@
         </tbody>
       </table>
     </div>
+    <div class="container mt-lg-5 mb-4">
+      <h1 style="color: royalblue; width: 100%; font-weight: bold">
+        Qr Code Generator
+      </h1>
+      <form action="/scan" method="POST" class="form-check">
+        <label for="fullUrl"></label>
+        <textarea
+          required
+          class="form-control col mr-4"
+          name="text"
+          id="text"
+          cols="150"
+          rows="4"
+          placeholder="Enter URL"
+        ></textarea>
+        <button type="submit" class="btn btn-primary mt-2">
+          Generate QR Code
+        </button>
+      </form>
+    </div>
   </body>
 </html>

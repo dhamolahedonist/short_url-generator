@@ -1,5 +1,7 @@
 import express from "express"
 import ShortUrl from '../models/shortUrl'
+import  QRCode  from "qrcode"
+import url from 'url'
 
 
 
@@ -24,6 +26,32 @@ export const getShortUrl = async (request:express.Request,response:express.Respo
     shortUrl.save()
 
     response.redirect(shortUrl.full)
+}
+
+
+export const genQrCode = async (request: express.Request, response: express.Response) => {
+  const inputText = request.body.text;
+  
+  if (!isValidUrl(inputText)) {
+    const errorMessage = 'Invalid URL';
+    return response.render('error', { errorMessage });
+  }
+  
+  QRCode.toDataURL(inputText, (err, src) => {
+    response.render('scan', {
+      qr_code: src
+    });
+  });
+};
+
+function isValidUrl(text: any){
+    try{
+        const urlObj = new URL(text)
+        return true
+    }catch(error){
+        return false
+    }
+
 }
 
 

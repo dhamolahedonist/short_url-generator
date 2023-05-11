@@ -12,8 +12,6 @@ const app:express.Application = express()
 const hostname = Object(process.env.HOSTNAME)
 const port: number = parseInt(process.env.PORT || '3000');
 
-
-
  app.use(express.json())
  app.set('view engine', 'ejs')
  app.use(express.urlencoded({ extended: false}))
