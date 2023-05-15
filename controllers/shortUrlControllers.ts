@@ -21,10 +21,9 @@ export const getShortUrl = async (request:express.Request,response:express.Respo
     const shortUrl = await ShortUrl.findOne({short: request.params.shortUrl})
 
     if(shortUrl === null) return response.sendStatus(404)
-
     shortUrl.clicks++
     shortUrl.save()
-
+    
     response.redirect(shortUrl.full)
 }
 
@@ -56,7 +55,6 @@ function isValidUrl(text: any){
 
 export const deleteLink = async (request: express.Request, response: express.Response) => {
  const itemId = request.params.id
- console.log(itemId)
 try {
     // Delete the item from the database
     await ShortUrl.findByIdAndDelete(itemId);

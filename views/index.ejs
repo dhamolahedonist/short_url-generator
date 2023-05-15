@@ -88,9 +88,7 @@
     deleteLinks.forEach((link) => {
       link.addEventListener("click", (event) => {
         event.preventDefault();
-        
-        const itemId = link.getAttribute("data-id");
-        
+        const itemId = link.getAttribute("data-id");       
         // Send the DELETE request to the server
         fetch(`/delete/${itemId}`, { method: "DELETE" })
           .then((response) => response.json())
