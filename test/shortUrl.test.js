@@ -1,7 +1,5 @@
 // import { By, Key, Builder } from "selenium-webdriver"
 const { By, Key, Builder, until } = require("selenium-webdriver");
-const { WebDriverWait } = require("selenium-webdriver");
-let should = require("chai").should();
 const assert = require("assert");
 
 describe("load page", function () {
@@ -54,6 +52,11 @@ describe("load page", function () {
     await driver
       .findElement(By.id("text"))
       .sendKeys("https://google.com", Key.RETURN);
+
+    const submitButton = await driver.findElement(
+      By.xpath("/html/body/div[2]/form/button")
+    );
+    await submitButton.click();
   });
 });
 
