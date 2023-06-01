@@ -6,7 +6,8 @@
   "scripts": {
     "start": "nodemon server.ts",
     "build": "tsc",
-    "test": "mocha --no-timeouts"
+    "test": "mocha --no-timeouts",
+    "production": "node server.js"
   },
   "author": "",
   "license": "ISC",
