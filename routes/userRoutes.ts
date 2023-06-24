@@ -18,7 +18,7 @@ router.get('/home', renderUrl)
 router.post("/register", registerUser);
 router.get('/:shortUrl', getShortUrl) 
 router.post("/login", loginUser);
-router.get("/logout", logoutUser);
+
 
 
 export default router;
