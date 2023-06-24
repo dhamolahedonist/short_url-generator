@@ -6,7 +6,7 @@ import {
   loginUser,
   logoutUser,
 } from "../controllers/userController";
-import {  renderUrl } from "../controllers/shortUrlControllers"
+import {  renderUrl, getShortUrl } from "../controllers/shortUrlControllers"
 
 
 const router: Router = express.Router();
@@ -16,6 +16,7 @@ router.get("/register", renderRegister);
 // router.get("/dashboard", ensureAuthenticated, renderDashboard);
 router.get('/home', renderUrl) 
 router.post("/register", registerUser);
+router.get('/:shortUrl', getShortUrl) 
 router.post("/login", loginUser);
 router.get("/logout", logoutUser);
 
