@@ -35,7 +35,7 @@ export const renderUrl = async (request:express.Request,response:express.Respons
 
 export const genShortUrl =  async  (request:express.Request,response:express.Response) => {
         await ShortUrl.create({ full: request.body.fullUrl})
-        response.redirect('/')
+        response.redirect('/users/home')
 }
 
 
@@ -89,6 +89,5 @@ try {
   }
 
 };
-
 
 
