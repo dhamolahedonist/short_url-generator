@@ -2,39 +2,18 @@ import express from "express"
 import ShortUrl from '../models/shortUrl'
 import  QRCode  from "qrcode"
 
-import redisClient from "../get-connection"
 
-
-const DEFAULT_EXPIRATION = 3600
-
-
-// export const renderUrl = async (request:express.Request,response:express.Response) => {
-//   redisClient.get('shortUrls', async(error, shortUrlsString) => {
-//     if(error) console.error(error)
-//     if(shortUrlsString != null){
-//       const shortUrls = JSON.parse(shortUrlsString)
-//        response.render('index', { shortUrls: shortUrls} ) 
-      
-//     }else{
-//       console.log("cache miss")
-//       const shortUrls = await ShortUrl.find()
-
-//      await redisClient.setex('shortUrls',DEFAULT_EXPIRATION, JSON.stringify(shortUrls))
-//     response.render('index', { shortUrls: shortUrls} ) 
-//     }
-//   })  
-// }
-
-
-export const renderUrl = async (request:express.Request,response:express.Response) => {
-    const shortUrls = await ShortUrl.find()
+export const renderUrl = async (request:express.Request, response:express.Response) => {
+    const shortUrls = await ShortUrl.find({
+      user: request.user
+    })
     response.render('index', { shortUrls: shortUrls} )
 
 }
 
 
 export const genShortUrl =  async  (request:express.Request,response:express.Response) => {
-        await ShortUrl.create({ full: request.body.fullUrl})
+        await ShortUrl.create({ full: request.body.fullUrl, user: request.user})
         response.redirect('/users/home')
 }
 

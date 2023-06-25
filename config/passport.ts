@@ -31,7 +31,7 @@ export default function configurePassport(passport: any) {
 
   //   login session
   passport.serializeUser((user: any, done: any) => {
-    done(null, user.id);
+    done(null, user._id);
   });
 
 //   passport.deserializeUser((id: any, done: any) => {

@@ -1,13 +1,9 @@
 import { Request, Response } from "express";
+import User from "../models/User";
 
 export const renderWelcome = (req: Request, res: Response) => {
   res.render("welcome");
 };
-
-interface User {
-  name: string;
-  // Other properties of the User model
-}
 
 export const renderDashboard = (req: Request, res: Response) => {
   if (req.user) {
