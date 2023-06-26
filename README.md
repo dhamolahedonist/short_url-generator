@@ -8,7 +8,7 @@
 
 ## Features
 
-- Users have the ability to create a shortened URL link.
+- Users have the ability to create a shortened URL link after they must have registered and logged in.
   -Remove the link from the table.
   -Generate a barcode for a specific link.
   -Download the generated barcode.
