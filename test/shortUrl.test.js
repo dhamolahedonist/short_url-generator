@@ -76,11 +76,20 @@ describe("load page", function () {
     );
     await loginButton.click();
 
-    await driver
-      .wait(until.elementLocated(By.id("email")), 30000)
-      .sendKeys("samuel@gmail.com", Key.RETURN);
+    // await driver
+    //   .wait(until.elementLocated(By.id("email")), 30000)
+    //   .sendKeys("samuel@gmail.com", Key.RETURN);
+    const emailInput = await driver.findElement(By.id("email"));
+    await driver.wait(until.elementIsVisible(emailInput), 30000);
+    await emailInput.sendKeys("samuel@gmail.com", Key.RETURN);
 
-    await driver.findElement(By.id("password")).sendKeys("samuel1", Key.RETURN);
+    const passwordInput = await driver.findElement(By.id("password"));
+    await driver.wait(until.elementIsVisible(passwordInput), 30000);
+    await passwordInput.sendKeys("samuel1", Key.RETURN);
+
+    // await driver
+    //   .findElement(By.xpath("/html/body/div/div/div/div/form/div[2]/input"))
+    //   .sendKeys("samuel1", Key.RETURN);
 
     const submitLoginButton = await driver.findElement(
       By.xpath("/html/body/div/div/div/div/form/button")
