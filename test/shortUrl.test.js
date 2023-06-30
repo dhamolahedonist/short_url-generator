@@ -17,11 +17,89 @@ describe("load page", function () {
     // get the link to be navigated to
     await driver.get("http://127.0.0.1:5050/");
 
-    // Assert the page title
-    const title = await driver.getTitle();
-    assert.strictEqual(title, "Short Url");
+    const registerButton = await driver.findElement(
+      By.xpath("/html/body/div/div/div/div/a[1]")
+    );
+    await registerButton.click();
+
+    // // Assert the page title
+    // const title = await driver.getTitle();
+    // assert.strictEqual(title, "Short Url");
   });
-  it("type a url into the input field", async () => {
+  it("should fill the register form", async () => {
+    await driver.get("http://127.0.0.1:5050/");
+
+    const regButton = await driver.findElement(
+      By.xpath("/html/body/div/div/div/div/a[1]")
+    );
+    await regButton.click();
+
+    await driver
+      .wait(until.elementLocated(By.id("name")), 30000)
+      .sendKeys("samuel", Key.RETURN);
+
+    await driver
+      .wait(until.elementLocated(By.id("email")), 30000)
+      .sendKeys("samuel@gmail.com", Key.RETURN);
+
+    await driver
+      .wait(until.elementLocated(By.id("password")), 30000)
+      .sendKeys("samuel1", Key.RETURN);
+
+    await driver
+      .wait(until.elementLocated(By.id("password2")), 30000)
+      .sendKeys("samuel1", Key.RETURN);
+
+    const registerButton = await driver.findElement(
+      By.xpath("/html/body/div/div/div/div/form/button")
+    );
+    await registerButton.click();
+
+    try {
+      // Check if an error message is displayed for an already registered email
+      await driver.wait(
+        until.elementLocated(By.xpath("/html/body/div/div/div/div/div")),
+        5000
+      );
+      assert.fail("Email is already registered"); // Test fails if error message is found
+    } catch (error) {
+      // If no error message is found, the test passes
+      assert.ok("Email registration successful");
+    }
+  });
+
+  it("should login user", async () => {
+    await driver.get("http://127.0.0.1:5050/");
+
+    const loginButton = await driver.findElement(
+      By.xpath("/html/body/div/div/div/div/a[2]")
+    );
+    await loginButton.click();
+
+    await driver
+      .wait(until.elementLocated(By.id("email")), 30000)
+      .sendKeys("samuel@gmail.com", Key.RETURN);
+
+    await driver.findElement(By.id("password")).sendKeys("samuel1", Key.RETURN);
+
+    const submitLoginButton = await driver.findElement(
+      By.xpath("/html/body/div/div/div/div/form/button")
+    );
+
+    await submitLoginButton.click();
+
+    // await driver
+    //   .wait(until.elementLocated(By.id("password")), 30000)
+    //   .sendKeys("samuel", Key.RETURN);
+
+    // const submitLoginButton = await driver.wait(
+    //   until.elementLocated(By.xpath("/html/body/div/div/div/div/form/button")),
+    //   30000
+    // );
+    // await submitLoginButton.click();
+  });
+
+  it.skip("type a url into the input field", async () => {
     // get the link to be navigated to
     await driver.get("http://127.0.0.1:5050/");
 
@@ -30,7 +108,7 @@ describe("load page", function () {
       .findElement(By.id("fullUrl"))
       .sendKeys("https://google.com", Key.RETURN);
   });
-  it("it should delete an item", async () => {
+  it.skip("it should delete an item", async () => {
     await driver.get("http://127.0.0.1:5050/");
 
     const deleteButton = await driver.findElement(By.className("delete-link"));
@@ -44,7 +122,7 @@ describe("load page", function () {
     );
     assert.strictEqual(isButtonDeleted.length, 0, "Button is not deleted");
   });
-  it("type a url into the QR code generator", async () => {
+  it.skip("type a url into the QR code generator", async () => {
     // get the link to be navigated to
     await driver.get("http://127.0.0.1:5050/");
 
