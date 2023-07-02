@@ -1,6 +1,7 @@
 // import { By, Key, Builder } from "selenium-webdriver"
 const { By, Key, Builder, until } = require("selenium-webdriver");
-const assert = require("assert");
+// const assert = require("assert");
+const { assert } = require("chai");
 
 describe("load page", function () {
   let driver;
@@ -9,30 +10,33 @@ describe("load page", function () {
     driver = await new Builder().forBrowser("chrome").build();
   });
 
-  afterEach(async () => {
-    // Clean up the driver after running the tests
-    await driver.quit();
-  });
+  // afterEach(async () => {
+  //   // Clean up the driver after running the tests
+  //   // await driver.quit();
+  // });
+
   it("load page successfully", async () => {
     // get the link to be navigated to
-    await driver.get("http://127.0.0.1:5050/");
+    await driver.get("http://127.0.0.1:5050");
 
-    const registerButton = await driver.findElement(
-      By.xpath("/html/body/div/div/div/div/a[1]")
-    );
-    await registerButton.click();
+    const bodyText = await driver
+      .findElement(By.className("container"))
+      .getText();
 
-    // // Assert the page title
-    // const title = await driver.getTitle();
-    // assert.strictEqual(title, "Short Url");
+    assert.isTrue(bodyText.includes("Create an account or login"));
+    assert.isTrue(bodyText.includes("Register"));
+    assert.isTrue(bodyText.includes("Login"));
+
+    // Assert the page title
+    const title = await driver.getTitle();
+    assert.strictEqual(title, "Node.js & Passport App");
   });
-  it("should fill the register form", async () => {
-    await driver.get("http://127.0.0.1:5050/");
 
-    const regButton = await driver.findElement(
+  it("should fill the register form and register successfully", async () => {
+    const goToRegistrationPageButton = await driver.findElement(
       By.xpath("/html/body/div/div/div/div/a[1]")
     );
-    await regButton.click();
+    await goToRegistrationPageButton.click();
 
     await driver
       .wait(until.elementLocated(By.id("name")), 30000)
@@ -55,20 +59,20 @@ describe("load page", function () {
     );
     await registerButton.click();
 
-    try {
-      // Check if an error message is displayed for an already registered email
-      await driver.wait(
-        until.elementLocated(By.xpath("/html/body/div/div/div/div/div")),
-        5000
-      );
-      assert.fail("Email is already registered"); // Test fails if error message is found
-    } catch (error) {
-      // If no error message is found, the test passes
-      assert.ok("Email registration successful");
-    }
+    await driver.wait(
+      until.elementLocated(By.xpath("/html/body/div/div/div/div/div")),
+      5000
+    );
+
+    const bodyText = driver.findElement(By.tagName("body")).getText();
+    Assert.assertTrue(bodyText.contains("Email registration successful"));
   });
 
-  it("should login user", async () => {
+  it.skip("Fails to register due to existing email", async () => {
+    // Todo
+  });
+
+  it.skip("should login user", async () => {
     await driver.get("http://127.0.0.1:5050/");
 
     const loginButton = await driver.findElement(

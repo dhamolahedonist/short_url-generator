@@ -29,6 +29,7 @@
     "@types/selenium-webdriver": "^4.1.14",
     "@types/shortid": "^0.0.29",
     "bcrypt": "^5.1.0",
+    "cypress": "^12.16.0",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
@@ -46,6 +47,7 @@
     "shortid": "^2.2.16"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@types/chai": "^4.3.5",
     "@types/chai-http": "^4.2.0",
     "@types/jest": "^29.5.1",
